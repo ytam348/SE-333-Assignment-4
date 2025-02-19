@@ -3,7 +3,6 @@ package org.example;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.*;
 
 
 import java.util.ArrayList;
@@ -11,8 +10,7 @@ import java.util.List;
 
 
 import static org.example.NumberUtils.add;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class NumberUtilsTest {
     /**
@@ -256,4 +254,44 @@ class NumberUtilsTest {
         assertTrue(caught);
     }
 
+
+    @Test
+    @Tag ("Mutation")
+    @DisplayName("Catching the boundaries in if statement")
+    void ifBoundaryTest(){
+        List<Integer> left = new ArrayList<>();
+        left.add(0);
+        left.add(9);
+        List<Integer> right = new ArrayList<>();
+        right.add(0);
+        right.add(9);
+        List<Integer> answer = new ArrayList<>();
+        answer.add(1);
+        answer.add(8);
+        assertEquals(add(left,right), answer);
+    }
+
+    @Test
+    @Tag("Mutation")
+    @DisplayName("Catching result.size() >= 1")
+    void resultEqualOneTest(){
+        List<Integer> left = new ArrayList<>();
+        left.add(0);
+        List<Integer> right = new ArrayList<>();
+        right.add(0);
+        List<Integer> answer = new ArrayList<>();
+        answer.add(0);
+        List<Integer> trueArr = add(left, right);
+        assertEquals(trueArr.size(), 1);
+    }
+
+    @Test
+    @Tag("Mutation")
+    @DisplayName("Catching carry >= 0")//accidentally got the loop too
+    void carryEqualZeroTest(){
+        List<Integer> left = new ArrayList<>();
+        List<Integer> right = new ArrayList<>();
+        List<Integer> answer = new ArrayList<>();
+        assertEquals(add(left,right), answer);
+    }
 }
